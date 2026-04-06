@@ -1,0 +1,35 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: "Dados brutos coletados pelo scraper"
+    tables:
+      - name: apartamentos
+        description: "Anúncios de apartamentos à venda coletados dos portais"
+        columns:
+          - name: id
+            description: "Identificador único do anúncio (UUID)"
+            tests:
+              - not_null
+              - unique
+          - name: url
+            description: "URL original do anúncio"
+            tests:
+              - not_null
+              - unique
+          - name: preco
+            description: "Preço de venda em R$"
+          - name: area_m2
+            description: "Área útil em metros quadrados"
+          - name: quartos
+            description: "Número de dormitórios"
+          - name: portal
+            description: "Portal de origem"
+            tests:
+              - accepted_values:
+                  values: ["olx", "zap", "vivareal", "demo"]
+          - name: data_coleta
+            description: "Timestamp da coleta"
+            tests:
+              - not_null

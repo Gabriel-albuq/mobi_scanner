@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: stg_apartamentos
+    description: "Anúncios de apartamentos limpos e normalizados"
+    columns:
+      - name: id
+        description: "Identificador único (UUID)"
+        tests:
+          - not_null
+          - unique
+      - name: url
+        description: "URL do anúncio"
+        tests:
+          - not_null
+          - unique
+      - name: preco
+        description: "Preço em R$ (filtrado: 50k–50M)"
+        tests:
+          - not_null
+      - name: area_m2
+        description: "Área em m² (filtrada: 15–2000)"
+        tests:
+          - not_null
+      - name: preco_m2
+        description: "Preço por m² calculado"
+        tests:
+          - not_null
+      - name: portal
+        description: "Portal de origem normalizado"
+        tests:
+          - accepted_values:
+              values: ["olx", "zap", "vivareal", "demo"]
+      - name: data_coleta
+        description: "Data da coleta (sem horário)"
+        tests:
+          - not_null

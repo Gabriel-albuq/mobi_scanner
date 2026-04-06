@@ -1,0 +1,13 @@
+mobi_scanner:
+  target: prod
+  outputs:
+    prod:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5432') | int }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'mobi_scanner') }}"
+      user: "{{ env_var('POSTGRES_USER', 'mobi') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD', 'mobi123') }}"
+      schema: staging
+      threads: 4
+      connect_timeout: 10

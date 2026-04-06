@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: preco_bairro
+    description: "Preço médio por bairro e cidade (snapshot mais recente)"
+    columns:
+      - name: bairro
+        description: "Nome do bairro (normalizado)"
+        tests:
+          - not_null
+      - name: cidade
+        description: "Cidade"
+        tests:
+          - not_null
+      - name: preco_medio
+        description: "Preço médio de venda em R$"
+        tests:
+          - not_null
+      - name: preco_m2_medio
+        description: "Preço médio por m² em R$"
+        tests:
+          - not_null
+      - name: total_anuncios
+        description: "Total de anúncios ativos no bairro"
+        tests:
+          - not_null
+      - name: data_ref
+        description: "Data de referência dos dados"
+        tests:
+          - not_null
+
+  - name: historico_preco
+    description: "Série temporal diária de preços por cidade"
+    columns:
+      - name: data_ref
+        description: "Data da observação"
+        tests:
+          - not_null
+      - name: cidade
+        description: "Cidade"
+        tests:
+          - not_null
+      - name: preco_medio
+        description: "Preço médio no dia"
+        tests:
+          - not_null
+      - name: total_anuncios
+        description: "Anúncios coletados no dia"
+        tests:
+          - not_null
