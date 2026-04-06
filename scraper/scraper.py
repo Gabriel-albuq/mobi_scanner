@@ -295,7 +295,17 @@ def scrape_zap(max_pages: int | None = 5) -> Iterator[Listing]:
                 tempo_inicio_pagina = time.time()
                 log.info("ZAP → página %d: %s", page, url)
 
-                page_browser.goto(url, wait_until="domcontentloaded", timeout=30000)
+                try:
+                    page_browser.goto(url, wait_until="domcontentloaded", timeout=30000)
+                except Exception as e:
+                    log.warning("Erro ao navegar (%s) — reabrindo sessão...", e)
+                    try:
+                        browser.close()
+                    except Exception:
+                        pass
+                    browser, page_browser = _new_browser_page(p, Stealth, incognito=True)
+                    page_browser.goto(url, wait_until="domcontentloaded", timeout=30000)
+
                 try:
                     page_browser.wait_for_selector("[data-cy='rp-property-cd']", timeout=15000)
                 except Exception:
